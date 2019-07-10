@@ -6,7 +6,7 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 10:46:55 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/07/04 15:32:55 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:56:03 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,21 @@
 #include "unistd.h"
 #include "./libft/libft.h"
 
-int		main(int argc, char **argv)
+int		ft_ls()
 {
 
-	DIR *dir;
-	struct dirent *sd;
+	DIR						*dir;
+	struct dirent 			*sd;
 
 	dir = opendir(".");
 	if (dir == NULL)
-	{
-		write(1, "Error unable to open directory!\n", 50);
-		exit(1);
-	}
-
-	while( (sd=readdir(dir)) != NULL )
+		return (0);
+	while( (sd=readdir(dir)))
 		printf("%s\n",sd->d_name);
-
-	closedir(dir);
-
 	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	ft_ls();
 }
