@@ -6,7 +6,7 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 10:46:55 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/07/10 11:56:03 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/07/11 16:49:59 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_ls()
 	if (dir == NULL)
 		return (0);
 	while( (sd=readdir(dir)))
-		printf("%s\n",sd->d_name);
+		ft_putendl(sd->d_name);
 	return (0);
 }
 
