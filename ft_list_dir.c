@@ -6,7 +6,7 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:22:55 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/06 14:26:39 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:29:21 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ DIR	*opendir(const char *filename)
 {
 	DIR* file = opendir(".");
 	if (file != NULL)
-		printf("Success");
+		ft_putendl(Success);
 	else
-		printf("Failed to open directory");
+		ft_putendl(Failed to open directory);
 }
 									//reading a directory
 struct dirent *readdir(DIR* dir)
@@ -37,7 +37,7 @@ int	*closedir(DIR* dir)
 {
 	int		dirclose = closedir(file);
 	if(dirclose == 0)
-		printf("Success");
+		ft_putendl(Success);
 	else
-		printf("Failed to open directory");
+		ft_putendl(Failed to open directory);
 }	
