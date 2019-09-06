@@ -6,33 +6,36 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 10:46:55 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/06 13:22:48 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/06 15:07:13 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <dirent.h>
-#include <stdlib.h>
-#include "unistd.h"
-#include "./libft/libft.h"
 
-int		ft_ls()
+#include "ft_ls.h"
+
+void		ft_ls(char *path)
 {
 
 	DIR						*dir;
 	struct dirent 			*sd;
-	char					*d_name[];
 
-	dir = opendir(".");
+	dir = opendir(path);
 	if (dir == NULL)
-		return (0);
+		return ;
 	while( (sd=readdir(dir)))
 		ft_putendl(sd->d_name);
-	return (0);
+	return ;
 }
 
-int	main(/*int argc, char **argv*/void)
+int	main(int argc, char **argv)
 {
-	ft_ls();
+	int i = 1;
+	if (argc == 1)
+		ft_ls(".");
+	else
+	{
+		while (argv[i])
+			ft_ls(argv[i++]);
+	}
+	return (0);
 }
