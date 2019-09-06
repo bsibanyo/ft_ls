@@ -6,7 +6,7 @@
 #    By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/06 09:41:16 by bsibanyo          #+#    #+#              #
-#    Updated: 2019/09/06 11:06:13 by bsibanyo         ###   ########.fr        #
+#    Updated: 2019/09/06 14:06:32 by bsibanyo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,5 +19,10 @@ sources = ./
 objects = $(sources: .c=.o)			#because we don't want to target the output files one-by-one we'll use the $() as reference
 
 all : $(name)
+
+$(name):
+	gcc $(flags) $(sources)
+	ar rc $(name) $(objects)
+	ranlib $(name)
 
 clean: rm *.o

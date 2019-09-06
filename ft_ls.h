@@ -6,7 +6,7 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 09:41:33 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/06 12:48:02 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/06 14:02:53 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ typedef struct		s_list						//typedef declaration
 	struct s_list	*next;
 }					t_list;
 
+DIR* opendir(const char *filename);
+int	*closedir(DIR* dir);
+struct dirent *readdir(DIR* dir);
 
 
 
