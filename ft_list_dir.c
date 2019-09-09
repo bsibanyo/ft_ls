@@ -6,22 +6,21 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 10:56:22 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/09 11:01:28 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/09 12:08:20 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		ft_list_dir(char *path)
+void	ft_list_dir(char *path)
 {
-
-	DIR						*dir;
-	struct dirent 			*sd;
+	DIR				*dir;
+	struct dirent	*sd;
 
 	dir = opendir(path);
 	if (dir == NULL)
 		return ;
-	while( (sd=readdir(dir)))
+	while ((sd = readdir(dir)))
 		ft_putendl(sd->d_name);
 	return ;
 }
