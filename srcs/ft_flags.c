@@ -6,7 +6,7 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 13:26:47 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/10 13:27:26 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/11 14:04:15 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void		init_flags(t_flags *flag)
 {
-	f->a = FALSE;
-	f->l = FALSE;
-	f->R = FALSE;
-	f->r = FALSE;
-	f->t = FALSE;
+	flag->a = FALSE;
+	flag->l = FALSE;
+	flag->R = FALSE;
+	flag->r = FALSE;
+	flag->t = FALSE;
 }
 
 void		ft_flags_error(char c, char *s, int x)

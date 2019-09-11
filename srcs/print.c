@@ -6,13 +6,13 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:07:18 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/11 11:50:23 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/11 14:12:22 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_ls.h"
 
-void	ft_print_type(t_file tmp, t_flags flag)
+void	ft_print_type(t_file tmp)
 {
 	if (S_ISDIR(tmp()->st_mode))
 		ft_foldername(tmp()->name);
@@ -44,3 +44,45 @@ void	ft_time(struct stat st, t_flags flag)
 	ft_putstr(date);
 	ft_putchar(" ");
 }
+
+void	print_info(struct stat st)
+{
+	struct group *ptr;
+
+	ft_putnbr((int)st.st_nlink);
+	ft_putchar(" ");
+
+	ptr = getgrgid(st.st_gid); 						//google
+	ft_putstr(ptr->name);
+	ft_putchar(" ");
+	ft_putnbr((long)st.st_size);					//google
+	ft_putchar(" ");
+}
+
+void	ft_recursion(t_files *tmp, t_flags flag)
+{
+	if (flag.a)
+	{
+		if (tmp->name[0] != ".")
+		{
+			if (flag.l == TRUE)
+			{
+				ft_print_permission(tmp->stat);
+				ft_time(tmp->stat);
+				print_info()(tmp->stat);	//read about STAT
+			}
+			ft_print_type(tmp, flag);
+		}
+	}
+	else
+	{
+		if (flags.l == TRUE)
+		{
+			ft_print_permission(tmp->stat);
+			ft_time(tmp->stat);
+			print_info()(tmp->stat);	//read about STAT
+		}
+		ft_print_type(tmp, flag);
+	}
+}
+

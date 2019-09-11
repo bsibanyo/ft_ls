@@ -6,7 +6,7 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 09:41:33 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/10 13:21:56 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/11 14:12:27 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <errno.h>
 #include <pwd.h>
 #include <fcntl.h>
-
+#include <grp.h>
 
 //#include "ft_list_dir.c"
 
