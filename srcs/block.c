@@ -41,17 +41,17 @@ void	ft_outputblock(char *curr_dir, t_flags flag)
 			r.files = r.files->next;
 		else
 		{
-			output = output + (int)r.files->s_blocks;
-			r.files = r.file->next;
+			output = output + (int)r.files->st_blocks;
+			r.files = r.files->next;
 		}
 	}
-	output = output + (int)r.files->s_blocks;
+	output = output + (int)r.files->st_blocks;
 	closedir();
 	free_list();
 	ft_block(output, flag);
 }
 
-void ft_printoutput(char *curr_dir, t_flags flag, t_r)
+void ft_printoutput(char *curr_dir, t_flags flag, t_r *r)
 {
 	if (!(r->d == opendir(curr_dir)))
 		return (NULL);
@@ -59,7 +59,7 @@ void ft_printoutput(char *curr_dir, t_flags flag, t_r)
 		ft_exit("readdir problem");
 	if (!(r->files == ft_lstnew(r->d, curr_dir, flag)))
 		ft_exit("lstnew problem");
-	while (r.d == readdir(r->ds))
+	while (r->d == readdir(r->ds))
 		ft_lpd(&r->files, r->d, curr_dir, flag);
 	return (r->files);
 }

@@ -12,26 +12,26 @@
 
 #include "../ft_ls.h"
 
-void	sort_time(t_files *curr, t_files *node)
+void	sort_timeb(t_files *curr, t_files *node)
 {
 	if (ft_strcmp(curr->next->name, node->name) > 0)
 	{
 		node->next = curr->next;
-		curr->next = node->next; // print time when it was modified
+		curr->next = node; // print time when file is accessed
 	}
 	else 
 	{
-		while (curr->next != NULL && 
-				curr->next->atime - node->atime == 0)
-		{
+		while (curr->next != NULL
+				&& ft_strcmp(curr->next->name, node->name) < 0
+				&& curr->next->atime - node->atime == 0)
 			curr = curr->next;
 			node->next = curr->next;
-			curr = node->next;
-		}
+			node->prev = curr->prev;
+			curr->next = node;
 	}
 }
 
-void	sort_time_b(t_files **stack, t_files new_node)
+void	sort_time(t_files **stack, t_files *new_node)
 {
 	t_files *curr;
 
@@ -43,16 +43,15 @@ void	sort_time_b(t_files **stack, t_files new_node)
 	else
 	{
 		curr = *stack;
-		while (curr->next != NULL && 
+		while (curr->next != NULL &&
 				curr->next->atime - new_node->atime > 0)
 			curr = curr->next;
-		if (curr->next != NULL && 
-				curr->next->atime - new_node->atime == 0)
+		if (curr->next != NULL && curr->next->atime - new_node->atime == 0)
 			sort_time(curr, new_node);
-		else 
+		else
 		{
-			curr = curr->next;
-			node->next = curr->next;
-			curr = node->next;
+			new_node->next = curr->next;
+			new_node->prev = curr->prev;
+			curr->next = new_node;
 		}
 }

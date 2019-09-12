@@ -19,7 +19,7 @@ void	ft_foldername(char *ptr)
 	ft_putchar('\n');
 }
 
-void ft_symbolic_link(t_file *file, t_flags *flag)
+void ft_symbolic_link(t_files *file, t_flags *flag)
 {
 	ft_putstr(file->name);
 	if (flag.l == TRUE)

@@ -30,7 +30,7 @@ void	ft_time(struct stat st, t_flags flag)
 {
 	int c;
 	char date[50];
-	
+
 	ft_memset(date, 0, sizeof(date));
 	ft_strcpy(date, ctime(&st.st_mode), sizeof(date));
 	c = 0;
@@ -39,7 +39,7 @@ void	ft_time(struct stat st, t_flags flag)
 		if (date[c] == '\n')
 			date[c] = '\0';
 		c++;
-		
+
 	}
 	ft_putstr(date);
 	ft_putchar(" ");
@@ -50,26 +50,26 @@ void	print_info(struct stat st)
 	struct group *ptr;
 
 	ft_putnbr((int)st.st_nlink);
-	ft_putchar(" ");
+	ft_putchar(' ');
 
 	ptr = getgrgid(st.st_gid); 						//google
-	ft_putstr(ptr->name);
+	ft_putstr(ptr->gr_name);
 	ft_putchar(" ");
 	ft_putnbr((long)st.st_size);					//google
-	ft_putchar(" ");
+	ft_putchar(' ');
 }
 
 void	ft_recursion(t_files *tmp, t_flags flag)
 {
-	if (flag.a)
+	if (!flag.a)
 	{
 		if (tmp->name[0] != ".")
 		{
 			if (flag.l == TRUE)
 			{
 				ft_print_permission(tmp->stat);
-				ft_time(tmp->stat);
 				print_info()(tmp->stat);	//read about STAT
+				ft_time(tmp->stat);
 			}
 			ft_print_type(tmp, flag);
 		}
@@ -79,8 +79,8 @@ void	ft_recursion(t_files *tmp, t_flags flag)
 		if (flags.l == TRUE)
 		{
 			ft_print_permission(tmp->stat);
-			ft_time(tmp->stat);
 			print_info()(tmp->stat);	//read about STAT
+			ft_time(tmp->stat);
 		}
 		ft_print_type(tmp, flag);
 	}
