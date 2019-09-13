@@ -1,76 +1,125 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   selected.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/13 14:23:57 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/13 14:24:35 by bsibanyo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../ft_ls.h"
 
-void		select_check(char *str)
+#include "ft_ls.h"
+
+t_files				*ft_list_single(char *path, char *name, t_flags flags)
 {
-	ft_putstr("ls: ");
-	ft_putstr(str);
-	ft_putendl("no such file and directory");
-	return (NULL);
+	t_single		s;
 
+	s.nw_path = make_path_fl(path, name);
+	if (lstat(s.nw_path, &s.fstat) < 0)
+		return (ft_select_check(name));
+	free(s.nw_path);
+	if (!(s.alist = (t_files *)malloc(sizeof(t_files))))
+		return (NULL);
+	s.alist->next = NULL;
+	s.alist->sub_dir = NULL;
+	s.alist->stat = s.fstat;
+	s.alist->mtime = s.fstat.st_mtime;
+	s.alist->atime = s.fstat.st_atime;
+	s.alist->st_mode = s.fstat.st_mode;
+	s.alist->st_nlink = s.fstat.st_nlink;
+	s.alist->st_uid = s.fstat.st_uid;
+	s.alist->st_gid = s.fstat.st_gid;
+	s.alist->st_size = s.fstat.st_size;
+	s.alist->st_ino = s.fstat.st_ino;
+	s.alist->st_blocks = s.fstat.st_blocks;
+	s.alist->name = ft_strdup(name);
+	if (S_ISLNK((s.alist)->st_mode))
+		ft_symlink_path(s.alist, s.nw_path, flags);
+	return (s.alist);
 }
 
-void	check_dir(t_files *tmp, char *curr_dir, t_flags flag)
+void				ft_select_bis(t_files *tmp2, char *pwd, t_flags flags)
 {
-	char	*new_path;
+	struct stat		fstat;
+	char			*nw_path;
 
-	if (IS_DIR((tmp)->st_mode))
-		if (((tmp)->name[0] == ".") && ft_strcmp((tmp)->name, ".") != 0
-				&& ft_strcmp((tmp)->name, "..") != 0 || (tmp)->name[0] != ".")
-		{
-			new_path = make_path(curr_dir, (tmp)->name);
-			if (!flag.a)
-			{
-				if (tmp->name[0] != ".")
-				{
-					ft_putchar('\n');
-					ft_putendl(new_path);
-					(tmp)->sub_dir = ft_list(new_path, flag);
-				}
-			}
-		}
-		else
+	nw_path = make_path_fl(pwd, tmp2->name);
+	if (lstat(nw_path, &fstat) < 0)
+	{
+		ft_putstr("ls: ");
+		ft_putstr(tmp2->name);
+		ft_putendl(": No such file or directory");
+	}
+	if (!S_ISDIR(tmp2->st_mode))
+		ft_print_r(tmp2, flags);
+	free(nw_path);
+}
+
+void				ft_select_ter(t_files *tmp, char *pwd, t_flags flags)
+{
+	struct stat		fstat;
+	char			*nw_path;
+	t_files			*file;
+
+	nw_path = make_path_fl(pwd, tmp->name);
+	if (lstat(nw_path, &fstat) < 0)
+	{
+		ft_putstr("ls: ");
+		ft_putstr(tmp->name);
+		ft_putendl(": No such file or directory");
+	}
+	else
+	{
+		if (S_ISDIR(tmp->st_mode))
 		{
 			ft_putchar('\n');
-			ft_putendl(new_path);
-			(tmp)->sub_dir = ft_list(new_path, flag);
+			ft_putendl(nw_path);
+			file = ft_list(nw_path, flags);
+			ft_free_r(file);
 		}
-	free(new_path);
+	}
+	free(nw_path);
 }
 
-void		ft_symbolic_link(t_files *file, char *path, t_flags flag)
+t_files				*ft_select_setup(char **av, t_files *file, t_main main)
 {
-	size_t	length;
-	size_t	link_size;
-	size_t	cont_size;
-	char 	*link;
-	char	buff[1024];
+	t_files			*tmp;
+	t_files			*tmp2;
 
-	link_size = 0;
-	cont_size = 0;
-	link_size = read_link(path, buff, sizeof(flag));
-	buff[link_size] = '\0';
-	if (flag.l == TRUE)
+	tmp = NULL;
+	if (file == NULL && av[main.start] != NULL)
+		file = ft_list_single(main.pwd, av[main.start++], main.flags);
+	tmp = file;
+	while (av[main.start] != NULL)
 	{
-		l = (ft_strlen("->") + ft_strlen(buff));
-		if (!(link = (char*)malloc(sizeof(char) * l + 1)))
-			ft_exit("error in malloc link ");
-		link = ft_strcpy(link, "->");
-		if (link_size < 0)
-			file->link = ft_strjoin(link, ft_strjoin("Private/", path ));
-		else
-			file->link = ft_strjoin(link, buff);
-		free(link);
+		tmp2 = ft_list_single(main.pwd, av[main.start], main.flags);
+		if (tmp2 != NULL)
+		{
+			file->next = tmp2;
+			file = file->next;
+		}
+		main.start++;
 	}
+	return (tmp);
+}
+
+void				ft_select(char **av, t_main main)
+{
+	t_files			*file;
+	t_files			*tmp;
+	t_files			*tmp2;
+
+	file = ft_list_single(main.pwd, av[main.start++], main.flags);
+	if ((tmp = ft_select_setup(av, file, main)) == NULL)
+		ft_exit(NULL);
+	if (main.flags.f == FALSE)
+		insertion_sort(&tmp, main.flags);
+	if (main.flags.sm_r == TRUE)
+		tmp = reverse_lst(tmp);
+	tmp2 = tmp;
+	while (tmp2->next)
+	{
+		ft_select_bis(tmp2, main.pwd, main.flags);
+		tmp2 = tmp2->next;
+	}
+	ft_select_bis(tmp2, main.pwd, main.flags);
+	while (tmp->next)
+	{
+		ft_select_ter(tmp, main.pwd, main.flags);
+		tmp = tmp->next;
+	}
+	ft_select_ter(tmp, main.pwd, main.flags);
+	ft_free_r(file);
 }

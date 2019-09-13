@@ -10,27 +10,47 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_ls.a
+NAME = ft_ls
 
-FLAGS = -c -Wall -Wextra -Werror													# the rule for building ls 
 
-SRCS = ./srcs/*.c
+FLAGS = -g -Wall -Wextra -Werror -I includes											# the rule for building ls 
+
+SRCS = srcs/main.c \
+			srcs/combo.c \
+			srcs/checks.c \
+			srcs/ft_flags.c \
+			srcs/path.c \
+			srcs/print.c \
+			srcs/ft_get_permission.c \
+			srcs/lg_r.c \
+			srcs/lists.c \
+			srcs/ft_list_swap.c \
+			srcs/sort.c \
+			srcs/selected.c \
+			srcs/block.c \
+			srcs/access.c \
+			srcs/modify.c \
+			srcs/free.c \
+			srcs/exit.c
 
 OBJS = $(SRCS: .c=.o)			#because we don't want to target the output files one-by-one we'll use the $() as reference
 
 all : $(NAME)
 
-$(NAME):
-	gcc $(FLAGS) $(SRCS)
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
+$(NAME) : $(OBJS)
+	@make -C libft
+	@gcc $(FLAGS) -o $(NAME) $(OBJS) -I libft/includes/libft.h libft/libft.a
 
-clean: rm -f $(OBJS)
+clean :
+	make -C libft clean
+	rm -rf $(OBJS)
 
-fclean: clean
-	rm -f $(NAME)
+fclean : clean
+	rm -rf $(NAME)
+	rm -rf libft/libft.a
 
-re: fclean all
+re : fclean all
 
-.PHONY: clean fclean all re
+.PHONY: all clean fclean re
+
 

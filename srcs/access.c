@@ -1,57 +1,49 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   access.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/12 10:45:38 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/12 11:06:00 by bsibanyo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../ft_ls.h"
 
-void	sort_timeb(t_files *curr, t_files *node)
+
+#include "ft_ls.h"
+
+void				sorted_access_time_b(t_files *current, t_files *new_node)
 {
-	if (ft_strcmp(curr->next->name, node->name) > 0)
+	if (ft_strcmp(current->next->name, new_node->name) > 0)
 	{
-		node->next = curr->next;
-		curr->next = node; // print time when file is accessed
-	}
-	else 
-	{
-		while (curr->next != NULL
-				&& ft_strcmp(curr->next->name, node->name) < 0
-				&& curr->next->atime - node->atime == 0)
-			curr = curr->next;
-			node->next = curr->next;
-			node->prev = curr->prev;
-			curr->next = node;
-	}
-}
-
-void	sort_time(t_files **stack, t_files *new_node)
-{
-	t_files *curr;
-
-	if (*stack == NULL || (*stack)->atime - new_node->atime < 0)
-	{
-		new_node->next = *stack;
-		*stack = new_node;
+		new_node->next = current->next;
+		current->next = new_node;
 	}
 	else
 	{
-		curr = *stack;
-		while (curr->next != NULL &&
-				curr->next->atime - new_node->atime > 0)
+		while (current->next != NULL
+				&& ft_strcmp(current->next->name, new_node->name) < 0
+				&& current->next->atime - new_node->atime == 0)
+			current = current->next;
+		new_node->next = current->next;
+		new_node->prev = current->prev;
+		current->next = new_node;
+	}
+}
+
+void				sorted_access_time(t_files **head, t_files *new_node)
+{
+	t_files			*curr;
+
+	if (*head == NULL || (*head)->atime - new_node->atime < 0)
+	{
+		new_node->next = *head;
+		*head = new_node;
+	}
+	else
+	{
+		curr = *head;
+		while (curr->next != NULL
+				&& curr->next->atime - new_node->atime > 0)
 			curr = curr->next;
 		if (curr->next != NULL && curr->next->atime - new_node->atime == 0)
-			sort_time(curr, new_node);
+			sorted_access_time_b(curr, new_node);
 		else
 		{
 			new_node->next = curr->next;
 			new_node->prev = curr->prev;
 			curr->next = new_node;
 		}
+	}
 }
