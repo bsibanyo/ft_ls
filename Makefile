@@ -16,12 +16,12 @@ NAME = ft_ls
 FLAGS = -g -Wall -Wextra -Werror -I includes											# the rule for building ls 
 
 SRCS = srcs/main.c \
-			srcs/combo.c \
+			srcs/printcolor.c \
 			srcs/checks.c \
-			srcs/ft_flags.c \
+			srcs/flags.c \
 			srcs/path.c \
 			srcs/print.c \
-			srcs/ft_get_permission.c \
+			srcs/printpermissions.c \
 			srcs/lg_r.c \
 			srcs/lists.c \
 			srcs/ft_list_swap.c \
@@ -29,7 +29,7 @@ SRCS = srcs/main.c \
 			srcs/selected.c \
 			srcs/block.c \
 			srcs/access.c \
-			srcs/modify.c \
+			srcs/modification.c \
 			srcs/free.c \
 			srcs/exit.c
 
@@ -49,7 +49,7 @@ fclean : clean
 	rm -rf $(NAME)
 	rm -rf libft/libft.a
 
-re : fclean all
+re : fclean 
 
 .PHONY: all clean fclean re
 
