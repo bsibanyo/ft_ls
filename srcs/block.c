@@ -1,6 +1,5 @@
 
-
-#include "ft_ls.h"
+#include "../ft_ls.h"
 
 void					ft_print_block(int block, t_flags flags)
 {

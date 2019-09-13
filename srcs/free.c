@@ -1,6 +1,6 @@
 
 
-#include "ft_ls.h"
+#include "../ft_ls.h"
 
 void					ft_free_lst(t_files *file)
 {

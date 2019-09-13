@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "../ft_ls.h"
 //#include "ft_list_dir.c"
 
 void	ft_exit(const char *message)

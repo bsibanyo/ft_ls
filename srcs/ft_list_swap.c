@@ -1,5 +1,4 @@
-
-#include "ft_ls.h"
+#include "../ft_ls.h"
 
 t_files					*get_prevnd(t_files *head, t_files *a)
 {

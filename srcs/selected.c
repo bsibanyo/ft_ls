@@ -1,6 +1,6 @@
 
 
-#include "ft_ls.h"
+#include "../ft_ls.h"
 
 t_files				*ft_list_single(char *path, char *name, t_flags flags)
 {

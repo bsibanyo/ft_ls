@@ -1,5 +1,5 @@
 
-#include "ft_ls.h"
+#include "../ft_ls.h"
 
 void					*ft_select_check(char *name)
 {

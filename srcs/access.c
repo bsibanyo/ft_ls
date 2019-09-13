@@ -1,7 +1,7 @@
 
 
 
-#include "ft_ls.h"
+#include "../ft_ls.h"
 
 void				sorted_access_time_b(t_files *current, t_files *new_node)
 {

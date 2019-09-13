@@ -1,6 +1,6 @@
 
 
-#include "ft_ls.h"
+#include "../ft_ls.h"
 
 void				ft_lpb(t_files **b, struct dirent *d, char *p, t_flags f)
 {

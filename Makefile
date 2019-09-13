@@ -33,24 +33,63 @@ SRCS = srcs/main.c \
 			srcs/free.c \
 			srcs/exit.c
 
-OBJS = $(SRCS: .c=.o)			#because we don't want to target the output files one-by-one we'll use the $() as reference
+OBJS = $(SRCS:.c=.o)
 
-all : $(NAME)
+all: $(NAME)
 
-$(NAME) : $(OBJS)
+
+$(NAME):  $(OBJS)
 	@make -C libft
-	@gcc $(FLAGS) -o $(NAME) $(OBJS) -I libft/includes/libft.h libft/libft.a
+	gcc $(FLAGS) $(SRCS) -I libft/libft.h libft/libft.a
+	ar rc $(NAME) $(OBJS)
+	ranlib $(NAME)
 
-clean :
-	make -C libft clean
-	rm -rf $(OBJS)
+clean:
+	rm -f $(OBJS)
 
-fclean : clean
-	rm -rf $(NAME)
-	rm -rf libft/libft.a
+fclean: clean
+	rm -f $(NAME)
 
-re : fclean 
+re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: clean fclean all re
+
+# OBJS = $(SRCS: .c=.o)			#because we don't want to target the output files one-by-one we'll use the $() as reference
+
+# all : $(NAME)
+
+# $(NAME) : $(OBJS)
+# 	@make -C libft
+# 	@gcc $(FLAGS) -o $(NAME) $(OBJS) -I libft/includes/libft.h libft/libft.a
+# 	ar rc $(NAME) $(OBJS)
+# 	ranlib $(NAME)
+
+# clean :
+# 	make -C libft clean
+# 	rm -rf $(OBJS)
+
+# fclean : clean
+# 	rm -rf $(NAME)
+# 	rm -rf libft/libft.a
+
+# re : fclean 
+
+# .PHONY: all clean fclean re
+
+
+# $(NAME):
+# 	gcc $(FLAGS) $(SRCS)
+# 	ar rc $(NAME) $(OBJS)
+# 	ranlib $(NAME)
+
+# clean:
+# 	rm -f $(OBJS)
+
+# fclean: clean
+# 	rm -f $(NAME)
+
+# re: fclean all
+
+# .PHONY: clean fclean all re
 
 

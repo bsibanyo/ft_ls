@@ -1,6 +1,6 @@
 
 
-#include "ft_ls.h"
+#include "../ft_ls.h"
 
 char				*make_path_fl(char *dir, char *file)
 {
