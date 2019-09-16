@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/16 09:49:38 by bsibanyo          #+#    #+#             */
+/*   Updated: 2019/09/16 09:50:07 by bsibanyo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../ft_ls.h"
 
@@ -17,9 +27,9 @@ void					ft_printinfo(struct stat st)
 	// }
 	p = getgrgid(st.st_gid);
 	ft_putstr(p->gr_name);
-	ft_putchar(' ');
+	ft_putchar('	');
 	ft_putnbr((long long)st.st_size);
-	ft_putchar(' ');
+	ft_putchar('	');
 }
 
 void					ft_printtime(struct stat st)
@@ -42,7 +52,7 @@ void					ft_printtime(struct stat st)
 		c++;
 	}
 	ft_putstr(date_time);
-	ft_putchar(' ');
+	ft_putchar('	');
 }
 
 void					ft_print_type(t_files *tmp, t_flags flags)
