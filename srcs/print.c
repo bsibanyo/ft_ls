@@ -6,7 +6,7 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 09:49:38 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/16 10:03:27 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/16 10:06:22 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 void					ft_printinfo(struct stat st)
 {
-	// struct passwd		*pt;
+	
 	struct group		*p;
 
 	ft_putnbr((int)st.st_nlink);
 	ft_putchar(' ');
-	// if (flags.g == FALSE)
-	// {
-	// 	pt = getpwuid(st.st_uid);
-	// 	ft_putstr(pt->pw_name);
-	// 	ft_putchar(' ');
-	// }
+
 	p = getgrgid(st.st_gid);
 	ft_putstr(p->gr_name);
 	ft_putchar('	');
@@ -38,9 +33,6 @@ void					ft_printtime(struct stat st)
 	char				date_time[100];
 
 	ft_memset(date_time, 0, sizeof(date_time));
-	// if (flags.u == TRUE)
-	// 	ft_strncpy(date_time, ctime(&st.st_atime), sizeof(date_time));
-	// else
 		ft_strncpy(date_time, ctime(&st.st_mtime), sizeof(date_time));
 	c = 0;
 	while (date_time[c] != '\0')
