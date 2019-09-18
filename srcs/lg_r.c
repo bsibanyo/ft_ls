@@ -6,7 +6,7 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 09:52:16 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/16 10:07:58 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/18 14:42:10 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_files					*ft_list(char *curr_dir, t_flags flags)
 		lists.tmp = lists.tmp->next;
 	}
 	ft_print_r(lists.tmp, flags);
-	
+	 if (flags.lg_r == TRUE)
+	 	ft_list_b(lists.tmp2, curr_dir, flags);	
 	return (lists.files);
 }
