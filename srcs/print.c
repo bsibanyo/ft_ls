@@ -6,20 +6,18 @@
 /*   By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 09:49:38 by bsibanyo          #+#    #+#             */
-/*   Updated: 2019/09/16 10:06:22 by bsibanyo         ###   ########.fr       */
+/*   Updated: 2019/09/25 12:15:55 by bsibanyo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_ls.h"
 
-void					ft_printinfo(struct stat st)
+void	ft_printinfo(struct stat st)
 {
-	
 	struct group		*p;
 
 	ft_putnbr((int)st.st_nlink);
 	ft_putchar(' ');
-
 	p = getgrgid(st.st_gid);
 	ft_putstr(p->gr_name);
 	ft_putchar('	');
@@ -27,13 +25,13 @@ void					ft_printinfo(struct stat st)
 	ft_putchar('	');
 }
 
-void					ft_printtime(struct stat st)
+void	ft_printtime(struct stat st)
 {
-	int					c;
-	char				date_time[100];
+	int		c;
+	char	date_time[100];
 
 	ft_memset(date_time, 0, sizeof(date_time));
-		ft_strncpy(date_time, ctime(&st.st_mtime), sizeof(date_time));
+	ft_strncpy(date_time, ctime(&st.st_mtime), sizeof(date_time));
 	c = 0;
 	while (date_time[c] != '\0')
 	{
@@ -47,7 +45,7 @@ void					ft_printtime(struct stat st)
 	ft_putchar(' ');
 }
 
-void					ft_print_type(t_files *tmp, t_flags flags)
+void	ft_print_type(t_files *tmp, t_flags flags)
 {
 	if (S_ISDIR((tmp)->st_mode))
 		ft_folder_color_r((tmp)->name);
@@ -61,7 +59,7 @@ void					ft_print_type(t_files *tmp, t_flags flags)
 		ft_putchar('\0');
 }
 
-void					ft_print_r(t_files *tmp, t_flags flags)
+void	ft_print_r(t_files *tmp, t_flags flags)
 {
 	if (!flags.a)
 	{
