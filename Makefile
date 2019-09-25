@@ -6,11 +6,11 @@
 #    By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/06 09:41:16 by bsibanyo          #+#    #+#              #
-#    Updated: 2019/09/25 14:26:15 by bsibanyo         ###   ########.fr        #
+#    Updated: 2019/09/25 15:49:50 by bsibanyo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_ls
+NAME = ft_ls.a
 
 
 FLAGS = -Wall -Wextra -Werror -o ft_ls 
