@@ -6,16 +6,16 @@
 #    By: bsibanyo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/06 09:41:16 by bsibanyo          #+#    #+#              #
-#    Updated: 2019/09/25 14:24:15 by bsibanyo         ###   ########.fr        #
+#    Updated: 2019/09/25 14:26:15 by bsibanyo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
 
 
-FLAGS = -Wall -Wextra -Werror -I includes -o ft_ls											# the rule for building ls 
+FLAGS = -Wall -Wextra -Werror -o ft_ls 
 
-SRCS = srcs/main.c \
+SRCS = 		srcs/main.c \
 			srcs/printcolor.c \
 			srcs/checks.c \
 			srcs/flags.c \
